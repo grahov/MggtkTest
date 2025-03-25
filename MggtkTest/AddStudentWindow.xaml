@@ -1,0 +1,35 @@
+﻿<Window x:Class="MggtkTest.AddStudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MggtkTest"
+        mc:Ignorable="d"
+        Title="AddStudentWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBox
+            Text="{Binding NewStudent.Name}"
+            Grid.Row="0"
+            >
+            
+        </TextBox>
+        <TextBox
+            Text="{Binding NewStudent.Course}"
+            Grid.Row="1">
+            
+        </TextBox>
+
+        <Button
+            Name="saveButton"
+            Content="Сохранить"
+            Grid.Row="2"
+            Click="saveButton_Click"></Button>
+        
+    </Grid>
+</Window>
