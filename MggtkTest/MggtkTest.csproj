@@ -64,8 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddStudentWindow.xaml.cs">
-      <DependentUpon>AddStudentWindow.xaml</DependentUpon>
+    <Compile Include="AddOrEditStudentWindow.xaml.cs">
+      <DependentUpon>AddOrEditStudentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\CollegeModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -87,7 +87,7 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Page Include="AddStudentWindow.xaml">
+    <Page Include="AddOrEditStudentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

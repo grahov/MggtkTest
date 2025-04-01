@@ -42,7 +42,14 @@ namespace MggtkTest
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            AddStudentWindow addStudentWindow = new AddStudentWindow();
+            AddOrEditStudentWindow addStudentWindow = new AddOrEditStudentWindow(null);
+            addStudentWindow.Owner = this;
+            addStudentWindow.ShowDialog();
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddOrEditStudentWindow addStudentWindow = new AddOrEditStudentWindow((DataContext as MainWindowViewModel).SelectedStudent);
             addStudentWindow.Owner = this;
             addStudentWindow.ShowDialog();
         }

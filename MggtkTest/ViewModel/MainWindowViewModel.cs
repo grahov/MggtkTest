@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -54,31 +56,45 @@ namespace MggtkTest.ViewModel
             NewStudent = new Student();
         }
 
-        public void LoadStudent()
+        public MainWindowViewModel(Student student)
+        {
+            Students = new ObservableCollection<Student>();
+            NewStudent = student;
+        }
+
+        public async void LoadStudent()
         {
             Students.Clear();
             using(var context = new CollegeEntities())
             {
-                var temp = context.Student.ToList();
+                var temp = await context.Student.ToListAsync();
+
+                var selectedStudent = (from student in context.Student
+                                      select student).ToList();
 
                 foreach (var student in temp)
                 {
+                    if (student.IsDeleted == true)
+                    {
+                        continue;
+                    }
+
                     Students.Add(student);
                 }
             }
         }
 
-        public void DeleteStudent()
+        public async void DeleteStudent()
         {
             try
             {
                 using (var context = new CollegeEntities())
                 {
-                    var findEntity = context.Student.FirstOrDefault(s => s.Id == SelectedStudent.Id);
+                    var findEntity = await context.Student.FirstOrDefaultAsync(s => s.Id == SelectedStudent.Id);
                     if (findEntity == null)
                         return;
                     var result = context.Student.Remove(findEntity);
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
 
                     LoadStudent();
                 }
@@ -88,13 +104,23 @@ namespace MggtkTest.ViewModel
 
         }
 
-        public bool AddNewStudent()
+        public async Task<bool> AddOrEditStudent()
         {
 
-                using(var context = new CollegeEntities())
+            using (var context = new CollegeEntities())
+                {
+                    var findStudent = await context.Student.FirstOrDefaultAsync(s => s.Id == NewStudent.Id);
+                if (findStudent != null)
+                {
+                    findStudent.Name = NewStudent.Name;
+                    findStudent.Course = NewStudent.Course;
+                }
+                else
                 {
                     var newStudent = context.Student.Add(NewStudent);
-                    context.SaveChanges();
+                }
+                    
+                    await context.SaveChangesAsync();
                     return true;
                 }
             

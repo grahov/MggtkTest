@@ -1,8 +1,10 @@
-﻿using MggtkTest.ViewModel;
+﻿using MggtkTest.Model;
+using MggtkTest.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,17 +20,29 @@ namespace MggtkTest
     /// <summary>
     /// Логика взаимодействия для AddStudentWindow.xaml
     /// </summary>
-    public partial class AddStudentWindow : Window
+    public partial class AddOrEditStudentWindow : Window
     {
-        public AddStudentWindow()
+        public AddOrEditStudentWindow(Student student)
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
+
+            if (student != null) {
+                DataContext = new MainWindowViewModel(student);
+            } else
+            {
+                DataContext = new MainWindowViewModel();
+            }
+
+            
         }
 
-        private void saveButton_Click(object sender, RoutedEventArgs e)
+        private async void saveButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = (DataContext as MainWindowViewModel).AddNewStudent();
+            loadTextBox.Visibility = Visibility.Visible;
+ 
+            var result = await (DataContext as MainWindowViewModel).AddOrEditStudent();
+
+            loadTextBox.Visibility = Visibility.Collapsed;
 
             if (result)
             {

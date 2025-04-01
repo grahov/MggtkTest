@@ -9,6 +9,8 @@
     mc:Ignorable="d"
     Title="MainWindow"
     Height="450"
+    MinHeight="200"
+    MinWidth="400"
     Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -47,9 +49,9 @@
             <Button
                 Grid.Row="1"
                 Grid.Column="0"
-                Content="Получить данные"
-                Name="getButton"
-                Click="getButton_Click">
+                Content="Редактировать"
+                Name="editButton"
+                Click="editButton_Click">
 
             </Button>
             <Button

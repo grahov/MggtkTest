@@ -17,5 +17,6 @@ namespace MggtkTest.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public int Course { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
     }
 }
